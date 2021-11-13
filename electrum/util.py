@@ -83,18 +83,18 @@ def all_subclasses(cls) -> Set:
 ca_path = certifi.where()
 
 
-base_units = {'BTC':8, 'mBTC':5, 'bits':2, 'sat':0}
+base_units = {'GLC':8, 'mGLC':5, 'bits':2, 'sat':0}
 base_units_inverse = inv_dict(base_units)
-base_units_list = ['BTC', 'mBTC', 'bits', 'sat']  # list(dict) does not guarantee order
+base_units_list = ['GLC', 'mGLC', 'bits', 'sat']  # list(dict) does not guarantee order
 
-DECIMAL_POINT_DEFAULT = 5  # mBTC
+DECIMAL_POINT_DEFAULT = 5  # mGLC
 
 
 class UnknownBaseUnit(Exception): pass
 
 
 def decimal_point_to_base_unit_name(dp: int) -> str:
-    # e.g. 8 -> "BTC"
+    # e.g. 8 -> "GLC"
     try:
         return base_units_inverse[dp]
     except KeyError:
@@ -102,7 +102,7 @@ def decimal_point_to_base_unit_name(dp: int) -> str:
 
 
 def base_unit_name_to_decimal_point(unit_name: str) -> int:
-    # e.g. "BTC" -> 8
+    # e.g. "GLC" -> 8
     try:
         return base_units[unit_name]
     except KeyError:
@@ -650,7 +650,7 @@ def chunks(items, size: int):
 def format_satoshis_plain(
         x: Union[int, float, Decimal, str],  # amount in satoshis,
         *,
-        decimal_point: int = 8,  # how much to shift decimal point to left (default: sat->BTC)
+        decimal_point: int = 8,  # how much to shift decimal point to left (default: sat->GLC)
 ) -> str:
     """Display a satoshi amount scaled.  Always uses a '.' as a decimal
     point and has no thousands separator"""
@@ -675,7 +675,7 @@ def format_satoshis(
         x: Union[int, float, Decimal, str, None],  # amount in satoshis
         *,
         num_zeros: int = 0,
-        decimal_point: int = 8,  # how much to shift decimal point to left (default: sat->BTC)
+        decimal_point: int = 8,  # how much to shift decimal point to left (default: sat->GLC)
         precision: int = 0,  # extra digits after satoshi precision
         is_diff: bool = False,  # if True, enforce a leading sign (+/-)
         whitespaces: bool = False,  # if True, add whitespaces, to align numbers in a column
@@ -714,7 +714,7 @@ def format_satoshis(
     # add leading/trailing whitespaces so that numbers can be aligned in a column
     if whitespaces:
         target_fract_len = overall_precision
-        target_integer_len = 14 - decimal_point  # should be enough for up to unsigned 999999 BTC
+        target_integer_len = 14 - decimal_point  # should be enough for up to unsigned 999999 GLC
         if add_thousands_sep:
             target_fract_len += max(0, (target_fract_len - 1) // 3)
             target_integer_len += max(0, (target_integer_len - 1) // 3)
@@ -946,12 +946,12 @@ def parse_URI(uri: str, on_pr: Callable = None, *, loop=None) -> dict:
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise InvalidBitcoinURI("Not a bitcoin address")
+            raise InvalidBitcoinURI("Not a goldcoin address")
         return {'address': uri}
 
     u = urllib.parse.urlparse(uri)
     if u.scheme.lower() != BITCOIN_BIP21_URI_SCHEME:
-        raise InvalidBitcoinURI("Not a bitcoin URI")
+        raise InvalidBitcoinURI("Not a goldcoin URI")
     address = u.path
 
     # python for android fails to parse query

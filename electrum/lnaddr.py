@@ -33,7 +33,7 @@ class LnEncodeException(LnInvoiceException): pass
 # A writer MUST encode `amount` as a positive decimal integer with no
 # leading zeroes, SHOULD use the shortest representation possible.
 def shorten_amount(amount):
-    """ Given an amount in bitcoin, shorten it
+    """ Given an amount in goldcoin, shorten it
     """
     # Convert to pico initially
     amount = int(amount * 10**12)
@@ -286,7 +286,7 @@ class LnAddr(object):
             return
         assert isinstance(value, Decimal)
         if value.is_nan() or not (0 <= value <= TOTAL_COIN_SUPPLY_LIMIT_IN_BTC):
-            raise LnInvoiceException(f"amount is out-of-bounds: {value!r} BTC")
+            raise LnInvoiceException(f"amount is out-of-bounds: {value!r} GLC")
         if value * 10**12 % 10:
             # max resolution is millisatoshi
             raise LnInvoiceException(f"Cannot encode {value!r}: too many decimal places")

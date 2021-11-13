@@ -218,7 +218,7 @@ def int_to_hex(i: int, length: int=1) -> str:
     return rev_hex(s)
 
 def script_num_to_hex(i: int) -> str:
-    """See CScriptNum in Bitcoin Core.
+    """See CScriptNum in Goldcoin Core.
     Encodes an integer as hex, to be used in script.
 
     ported from https://github.com/bitcoin/bitcoin/blob/8cbc5c4be4be22aca228074f087a374a7ec38be8/src/script/script.h#L326
@@ -318,7 +318,7 @@ def construct_witness(items: Sequence[Union[str, int, bytes]]) -> str:
 
 
 def construct_script(items: Sequence[Union[str, int, bytes, opcodes]]) -> str:
-    """Constructs bitcoin script from given items."""
+    """Constructs goldcoin script from given items."""
     script = ''
     for item in items:
         if isinstance(item, opcodes):
@@ -461,7 +461,7 @@ def script_to_address(script: str, *, net=None) -> str:
 def address_to_script(addr: str, *, net=None) -> str:
     if net is None: net = constants.net
     if not is_address(addr, net=net):
-        raise BitcoinException(f"invalid bitcoin address: {addr}")
+        raise BitcoinException(f"invalid goldcoin address: {addr}")
     witver, witprog = segwit_addr.decode_segwit_address(net.SEGWIT_HRP, addr)
     if witprog is not None:
         if not (0 <= witver <= 16):
@@ -491,7 +491,7 @@ def address_to_hash(addr: str, *, net=None) -> Tuple[OnchainOutputType, bytes]:
     """Return (type, pubkey hash / witness program) for an address."""
     if net is None: net = constants.net
     if not is_address(addr, net=net):
-        raise BitcoinException(f"invalid bitcoin address: {addr}")
+        raise BitcoinException(f"invalid goldcoin address: {addr}")
     witver, witprog = segwit_addr.decode_segwit_address(net.SEGWIT_HRP, addr)
     if witprog is not None:
         if witver != 0:
@@ -562,7 +562,7 @@ def base_encode(v: bytes, *, base: int) -> str:
         result.append(chars[mod])
         long_value = div
     result.append(chars[long_value])
-    # Bitcoin does a little leading-zero-compression:
+    # Goldcoin does a little leading-zero-compression:
     # leading 0-bytes in the input become leading-1s
     nPad = 0
     for c in v:
