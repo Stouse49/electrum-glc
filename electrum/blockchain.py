@@ -33,11 +33,17 @@ from .util import bfh, bh2u, with_lock
 from .simple_config import SimpleConfig
 from .logging import get_logger, Logger
 
+try:
+    import scrypt
+    getPoWHash = lambda x: scrypt.hash(x, x, N=1024, r=1, p=1, buflen=32)
+except ImportError:
+    util.print_msg("Warning: package scrypt not available; synchronization could be very slow")
+    from .scrypt import scrypt_1024_1_1_80 as getPoWHash
 
 _logger = get_logger(__name__)
 
 HEADER_SIZE = 80  # bytes
-MAX_TARGET = 0x00000000FFFF0000000000000000000000000000000000000000000000000000
+MAX_TARGET = 0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 
 
 class MissingHeader(Exception):
@@ -81,6 +87,9 @@ def hash_header(header: dict) -> str:
 
 def hash_raw_header(header: str) -> str:
     return hash_encode(sha256d(bfh(header)))
+
+def pow_hash_header(header):
+    return hash_encode(getPoWHash(bfh(serialize_header(header))))
 
 
 # key: blockhash hex at forkpoint
@@ -293,17 +302,22 @@ class Blockchain(Logger):
     @classmethod
     def verify_header(cls, header: dict, prev_hash: str, target: int, expected_header_hash: str=None) -> None:
         _hash = hash_header(header)
+        _powhash = pow_hash_header(header)
         if expected_header_hash and expected_header_hash != _hash:
             raise Exception("hash mismatches with expected: {} vs {}".format(expected_header_hash, _hash))
         if prev_hash != header.get('prev_block_hash'):
             raise Exception("prev hash mismatch: %s vs %s" % (prev_hash, header.get('prev_block_hash')))
         if constants.net.TESTNET:
             return
-        bits = cls.target_to_bits(target)
-        if bits != header.get('bits'):
-            raise Exception("bits mismatch: %s vs %s" % (bits, header.get('bits')))
-        block_hash_as_num = int.from_bytes(bfh(_hash), byteorder='big')
+        #bits = cls.target_to_bits(target)
+        #if bits != header.get('bits'):
+        #    print("bits mismatch: %s vs %s" % (bits, header.get('bits')))
+        #    raise Exception("bits mismatch: %s vs %s" % (bits, header.get('bits')))
+        # we need goldenriver for this, but for now not
+        target = cls.bits_to_target(header.get('bits'))
+        block_hash_as_num = int.from_bytes(bfh(_powhash), byteorder='big')
         if block_hash_as_num > target:
+            print(f"insufficient proof of work: {block_hash_as_num} vs target {target}")
             raise Exception(f"insufficient proof of work: {block_hash_as_num} vs target {target}")
 
     def verify_chunk(self, index: int, data: bytes) -> None:
@@ -485,7 +499,7 @@ class Blockchain(Logger):
         if not header:
             return True
         # note: We check the timestamp only in the latest header.
-        #       The Bitcoin consensus has a lot of leeway here:
+        #       The Goldcoin consensus has a lot of leeway here:
         #       - needs to be greater than the median of the timestamps of the past 11 blocks, and
         #       - up to at most 2 hours into the future compared to local clock
         #       so there is ~2 hours of leeway in either direction
@@ -595,25 +609,31 @@ class Blockchain(Logger):
 
     def can_connect(self, header: dict, check_height: bool=True) -> bool:
         if header is None:
+            print("header is none")
             return False
         height = header['block_height']
         if check_height and self.height() != height - 1:
+            print("check_height")
             return False
         if height == 0:
             return hash_header(header) == constants.net.GENESIS
         try:
             prev_hash = self.get_hash(height - 1)
         except:
+            print("didn't connect: no prev hash for height")
             return False
         if prev_hash != header.get('prev_block_hash'):
+            print("didn't connect")
             return False
         try:
             target = self.get_target(height // 2016 - 1)
         except MissingHeader:
+            print("missing header")
             return False
         try:
             self.verify_header(header, prev_hash, target)
         except BaseException as e:
+            print("cannot verify")
             return False
         return True
 
