@@ -5,7 +5,7 @@
 build/
 dist/
 *.egg/
-Electrum.egg-info/
+Electrum_GLC.egg-info/
 electrum/locale/
 .devlocaltmp/
 *_trial_temp
