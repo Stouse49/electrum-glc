@@ -144,7 +144,7 @@ class SwapManager(Logger):
             if swap.is_reverse and swap.prepay_hash is not None:
                 self.prepayments[swap.prepay_hash] = bytes.fromhex(k)
         # api url
-        if constants.net == constants.BitcoinMainnet:
+        if constants.net == constants.GoldcoinMainnet:
             self.api_url = API_URL_MAINNET
         elif constants.net == constants.BitcoinTestnet:
             self.api_url = API_URL_TESTNET

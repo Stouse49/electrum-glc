@@ -407,7 +407,7 @@ class LNWorker(Logger, NetworkRetryManager[LNPeerAddr]):
         # getting desperate... let's try hardcoded fallback list of peers
         if constants.net in (constants.BitcoinTestnet,):
             fallback_list = FALLBACK_NODE_LIST_TESTNET
-        elif constants.net in (constants.BitcoinMainnet,):
+        elif constants.net in (constants.GoldcoinMainnet,):
             fallback_list = FALLBACK_NODE_LIST_MAINNET
         else:
             return []  # regtest??
@@ -1538,7 +1538,7 @@ class LNWallet(LNWorker):
             # for trampoline mpp payments we have to restrict ourselves to pay
             # to a single node due to some incompatibility in Eclair, see:
             # https://github.com/ACINQ/eclair/issues/1723
-            use_singe_node = not self.channel_db and constants.net is constants.BitcoinMainnet
+            use_singe_node = not self.channel_db and constants.net is constants.GoldcoinMainnet
             split_configurations = suggest_splits(amount_msat, channels_with_funds, single_node=use_singe_node)
             self.logger.info(f'suggest_split {amount_msat} returned {len(split_configurations)} configurations')
 
