@@ -17,9 +17,9 @@ bin/
 .idea
 .mypy_cache
 .vscode
-electrum_data
+electrum-glc_data
 .DS_Store
-
+venv/
 # tests/tox
 .tox/
 .cache/
