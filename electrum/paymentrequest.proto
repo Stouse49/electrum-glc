@@ -8,7 +8,7 @@
 
 syntax = "proto2";
 package payments;
-option java_package = "org.bitcoin.protocols.payments";
+option java_package = "org.goldcoin.protocols.payments";
 option java_outer_classname = "Protos";
 
 // Generalized form of "send payment to this/these bitcoin addresses"
