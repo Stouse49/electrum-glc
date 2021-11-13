@@ -24,7 +24,7 @@ export PATH=$PATH:~/bin
 
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 Electrum.app"
+    echo "Usage: $0 Electrum-GLC.app"
     exit -127
 fi
 
@@ -80,7 +80,7 @@ ${genisoimage} \
     -D \
     -l \
     -probe \
-    -V "Electrum" \
+    -V "Electrum-GLC \
     -no-pad \
     -r \
     -dir-mode 0755 \

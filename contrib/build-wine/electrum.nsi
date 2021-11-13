@@ -6,9 +6,7 @@
 ;--------------------------------
 ;Variables
 
-  !define PRODUCT_NAME "Electrum"
-  !define PRODUCT_WEB_SITE "https://github.com/spesmilo/electrum"
-  !define PRODUCT_PUBLISHER "Electrum Technologies GmbH"
+  !define PRODUCT_NAME "Electrum-GLC"
   !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 
 ;--------------------------------

@@ -95,7 +95,7 @@ info "Building PyInstaller."
     rm -fv PyInstaller/bootloader/Windows-*/run*.exe || true
     # add reproducible randomness. this ensures we build a different bootloader for each commit.
     # if we built the same one for all releases, that might also get anti-virus false positives
-    echo "const char *electrum_tag = \"tagged by Electrum@$ELECTRUM_COMMIT_HASH\";" >> ./bootloader/src/pyi_main.c
+    echo "const char *electrum_tag = \"tagged by Electrum-GLC@$ELECTRUM_COMMIT_HASH\";" >> ./bootloader/src/pyi_main.c
     pushd bootloader
     # cross-compile to Windows using host python
     python3 ./waf all CC="${GCC_TRIPLET_HOST}-gcc" \

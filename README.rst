@@ -1,4 +1,4 @@
-Electrum - Lightweight Bitcoin client
+Electrum-GLC - Lightweight Goldcoin client
 =====================================
 
 ::
@@ -17,7 +17,7 @@ Electrum - Lightweight Bitcoin client
     :alt: Test coverage statistics
 .. image:: https://d322cqt584bo4o.cloudfront.net/electrum/localized.svg
     :target: https://crowdin.com/project/electrum
-    :alt: Help translate Electrum online
+    :alt: Help translate Electrum-GLC online
 
 
 
@@ -26,11 +26,11 @@ Electrum - Lightweight Bitcoin client
 Getting started
 ===============
 
-(*If you've come here looking to simply run Electrum,* `you may download it here`_.)
+(*If you've come here looking to simply run Electrum-GLC,* `you may download it here`_.)
 
 .. _you may download it here: https://electrum.org/#download
 
-Electrum itself is pure Python, and so are most of the required dependencies,
+Electrum-GLC itself is pure Python, and so are most of the required dependencies,
 but not everything. The following sections describe how to run from source, but here
 is a TL;DR::
 
@@ -72,19 +72,19 @@ Running from tar.gz
 -------------------
 
 If you downloaded the official package (tar.gz), you can run
-Electrum from its root directory without installing it on your
+Electrum-GLC from its root directory without installing it on your
 system; all the pure python dependencies are included in the 'packages'
-directory. To run Electrum from its root directory, just do::
+directory. To run Electrum-GLC from its root directory, just do::
 
     ./run_electrum
 
-You can also install Electrum on your system, by running this command::
+You can also install Electrum-GLC on your system, by running this command::
 
     sudo apt-get install python3-setuptools python3-pip
     python3 -m pip install --user .
 
 This will download and install the Python dependencies used by
-Electrum instead of using the 'packages' directory.
+Electrum-GLC instead of using the 'packages' directory.
 It will also place an executable named :code:`electrum` in :code:`~/.local/bin`,
 so make sure that is on your :code:`PATH` variable.
 
@@ -108,7 +108,7 @@ Create translations (optional)::
     sudo apt-get install python-requests gettext
     ./contrib/pull_locale
 
-Finally, to start Electrum::
+Finally, to start Electrum-GLC::
 
     ./run_electrum
 
@@ -156,7 +156,7 @@ Implementing new features, or improving/refactoring the codebase, is of course
 also welcome, but to avoid wasted effort, especially for larger changes,
 we encourage discussing these on the issue tracker or IRC first.
 
-Besides `GitHub`_, most communication about Electrum development happens on IRC, in the
+Besides `GitHub`_, most communication about Electrum-GLC development happens on IRC, in the
 :code:`#electrum` channel on Libera Chat. The easiest way to participate on IRC is
 with the web client, `web.libera.chat`_.
 

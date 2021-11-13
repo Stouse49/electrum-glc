@@ -5,7 +5,7 @@ set -e
 # Parameterize
 PYTHON_VERSION=3.7.9
 BUILDDIR=/tmp/electrum-build
-PACKAGE=Electrum
+PACKAGE=Electrum-GLC
 GIT_REPO=https://github.com/spesmilo/electrum
 
 export GCC_STRIP_BINARIES="1"

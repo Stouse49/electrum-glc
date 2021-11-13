@@ -47,7 +47,7 @@ $WINE_PYTHON -m pip install --no-dependencies --no-warn-script-location \
 
 pushd $WINEPREFIX/drive_c/electrum
 # see https://github.com/pypa/pip/issues/2195 -- pip makes a copy of the entire directory
-info "Pip installing Electrum. This might take a long time if the project folder is large."
+info "Pip installing Electrum-GLC. This might take a long time if the project folder is large."
 $WINE_PYTHON -m pip install --no-dependencies --no-warn-script-location .
 popd
 

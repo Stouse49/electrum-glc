@@ -540,7 +540,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             self.setGeometry(100, 100, 840, 400)
 
     def watching_only_changed(self):
-        name = "Electrum"
+        name = "Electrum-GLC"
         if constants.net.TESTNET:
             name += " " + constants.net.NET_NAME.capitalize()
         title = '%s %s  -  %s' % (name, ELECTRUM_VERSION,
@@ -789,7 +789,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             self.show_error(_('No donation address for this server'))
 
     def show_about(self):
-        QMessageBox.about(self, "Electrum",
+        QMessageBox.about(self, "Electrum-GLC",
                           (_("Version")+" %s" % ELECTRUM_VERSION + "\n\n" +
                            _("Electrum's focus is speed, with low resource usage and simplifying Bitcoin.") + " " +
                            _("You do not need to perform regular backups, because your wallet can be "
@@ -860,9 +860,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if self.tray:
             try:
                 # this requires Qt 5.9
-                self.tray.showMessage("Electrum", message, read_QIcon("electrum_dark_icon"), 20000)
+                self.tray.showMessage("Electrum-GLC", message, read_QIcon("electrum_dark_icon"), 20000)
             except TypeError:
-                self.tray.showMessage("Electrum", message, QSystemTrayIcon.Information, 20000)
+                self.tray.showMessage("Electrum-GLC", message, QSystemTrayIcon.Information, 20000)
 
     def timer_actions(self):
         self.request_list.refresh_status()

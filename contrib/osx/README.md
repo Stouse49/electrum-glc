@@ -4,7 +4,7 @@ Building macOS binaries
 ✓ _This binary should be reproducible, meaning you should be able to generate
    binaries that match the official releases._
 
-This guide explains how to build Electrum binaries for macOS systems.
+This guide explains how to build Electrum-GLC binaries for macOS systems.
 
 
 ## Building the binary
@@ -75,17 +75,17 @@ Make sure it is the "selected" xcode (e.g.):
     sudo xcode-select -s $HOME/Downloads/Xcode.app/Contents/Developer/
 
 
-#### 2. Build Electrum
+#### 2. Build Electrum-GLC
 
     cd electrum
     ./contrib/osx/make_osx
 
-This creates both a folder named Electrum.app and the .dmg file.
+This creates both a folder named Electrum-GLC.app and the .dmg file.
 
 If you want the binaries codesigned for MacOS and notarised by Apple's central server,
 provide these env vars to the `make_osx` script:
 
-    CODESIGN_CERT="Developer ID Application: Electrum Technologies GmbH (L6P37P7P56)" \
+    CODESIGN_CERT="Developer ID Application: Electrum-GLC Technologies GmbH (L6P37P7P56)" \
     APPLE_ID_USER="me@email.com" \
     APPLE_ID_PASSWORD="1234" \
     ./contrib/osx/make_osx

@@ -44,7 +44,7 @@ if not crowdin_api_key:
     sys.exit(0)
 print('Found crowdin_api_key. Will push updated source-strings to crowdin.')
 
-crowdin_project_id = 20482  # for "Electrum" project on crowdin
+crowdin_project_id = 20482  # for "Electrum-GLC project on crowdin
 locale_file_name = "locale/messages.pot"
 crowdin_file_name = "messages.pot"
 crowdin_file_id = 68  # for "/electrum-client/messages.pot"

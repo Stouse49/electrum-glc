@@ -183,7 +183,7 @@ class AuthenticatedServer(Logger):
             try:
                 await self.authenticate(request.headers)
             except AuthenticationInvalidOrMissing:
-                return web.Response(headers={"WWW-Authenticate": "Basic realm=Electrum"},
+                return web.Response(headers={"WWW-Authenticate": "Basic realm=Electrum-GLC"},
                                     text='Unauthorized', status=401)
             except AuthenticationCredentialsInvalid:
                 return web.Response(text='Forbidden', status=403)
