@@ -39,7 +39,7 @@ class AmountEdit(SizedFreezableLineEdit):
     shortcut = pyqtSignal()
 
     def __init__(self, base_unit, is_int=False, parent=None):
-        # This seems sufficient for hundred-BTC amounts with 8 decimals
+        # This seems sufficient for hundred-GLC amounts with 8 decimals
         width = 16 * char_width_in_lineedit()
         super().__init__(width=width, parent=parent)
         self.base_unit = base_unit

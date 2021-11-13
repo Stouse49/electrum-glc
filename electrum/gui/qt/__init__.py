@@ -181,7 +181,7 @@ class ElectrumGui(Logger):
             submenu.addAction(_("Close"), window.close)
         m.addAction(_("Dark/Light"), self.toggle_tray_icon)
         m.addSeparator()
-        m.addAction(_("Exit Electrum"), self.app.quit)
+        m.addAction(_("Exit Electrum-GLC"), self.app.quit)
 
     def tray_icon(self):
         if self.dark_icon:
